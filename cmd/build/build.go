@@ -18,7 +18,7 @@ import (
 	"github.com/codegangsta/cli"
 )
 
-const F = 0xffffffff
+const F = 0xffffff
 
 type Node struct {
 	IP, Mask, Mask2 uint32
