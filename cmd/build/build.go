@@ -131,7 +131,7 @@ func Action(c *cli.Context) {
 		panic(err)
 	}
 
-	t, err := template.ParseFiles("cmd/build/template.pac")
+	t, err := template.ParseFiles("templates/pac.tmpl")
 	data := make(map[string]interface{}, 0)
 	data["Graph"] = results
 	data["Proxy"] = c.String("proxy")
