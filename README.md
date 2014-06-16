@@ -8,14 +8,14 @@ Thanks to [@Leask](https://github.com/Leask).
 
 ## Usage:
 
-```
+```sh
 $ gopac help
 ```
 
 ```sh
-// First, generate PAC file.
+# First, generate PAC file.
 $ gopac build
-// Second, host the PAC file.
+# Second, host the PAC file.
 $ gopac serve -p 8970
 ```
 
