@@ -2,11 +2,9 @@ package build
 
 import (
 	"bufio"
-	"encoding/binary"
 	"fmt"
 	"io"
 	"math"
-	"net"
 	"net/http"
 	"os"
 	"regexp"
@@ -16,6 +14,7 @@ import (
 	"text/template"
 
 	"github.com/codegangsta/cli"
+	"github.com/go-libs/iputils"
 )
 
 type Node struct {
@@ -34,22 +33,6 @@ var (
 	URL           = "http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest"
 	CNIPV4        = regexp.MustCompile(`apnic\|(CN|cn)\|ipv4\|([0-9\.]+)\|([0-9]+)\|([0-9]+)\|a.*`)
 )
-
-func ip2long(ipstr string) uint32 {
-	ip := net.ParseIP(ipstr)
-	if ip == nil {
-		return 0
-	}
-	ip = ip.To4()
-	return binary.BigEndian.Uint32(ip)
-}
-
-func long2ip(ipLong uint32) string {
-	ipByte := make([]byte, 4)
-	binary.BigEndian.PutUint32(ipByte, ipLong)
-	ip := net.IP(ipByte)
-	return ip.String()
-}
 
 func fetchIPData(results *Graph) (err error) {
 	var (
@@ -108,7 +91,7 @@ func fetchIPData(results *Graph) (err error) {
 			maskIP := fmt.Sprintf("%s.%s.%s.%s", mask[0], mask[1], mask[2], mask[3])
 
 			if startIP != prevIP {
-				*results = append(*results, Node{ip2long(startIP), ip2long(maskIP), mask2})
+				*results = append(*results, Node{iputils.IP2Long(startIP), iputils.IP2Long(maskIP), mask2})
 				prevIP = startIP
 			}
 		}
@@ -119,10 +102,10 @@ func fetchIPData(results *Graph) (err error) {
 func Action(c *cli.Context) {
 	var pacfile = "go.pac"
 	var results = make(Graph, 0)
-	results = append(results, Node{ip2long("127.0.0.1"), ip2long("255.0.0.0"), 0})
-	results = append(results, Node{ip2long("10.0.0.0"), ip2long("255.0.0.0"), 0})
-	results = append(results, Node{ip2long("127.0.0.1"), ip2long("255.240.0.0"), 0})
-	results = append(results, Node{ip2long("192.168.0.0"), ip2long("255.255.0.0"), 0})
+	results = append(results, Node{iputils.IP2Long("127.0.0.1"), iputils.IP2Long("255.0.0.0"), 0})
+	results = append(results, Node{iputils.IP2Long("10.0.0.0"), iputils.IP2Long("255.0.0.0"), 0})
+	results = append(results, Node{iputils.IP2Long("127.0.0.1"), iputils.IP2Long("255.240.0.0"), 0})
+	results = append(results, Node{iputils.IP2Long("192.168.0.0"), iputils.IP2Long("255.255.0.0"), 0})
 	fetchIPData(&results)
 	sort.Sort(results)
 
