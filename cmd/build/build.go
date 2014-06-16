@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"encoding/binary"
 	"fmt"
-	"html/template"
+	"text/template"
 	"io"
 	"math"
 	"net"
