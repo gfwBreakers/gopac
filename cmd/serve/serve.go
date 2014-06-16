@@ -2,9 +2,9 @@ package serve
 
 import (
 	"fmt"
+	"io"
 	"net"
 	"os"
-	"io"
 	"strconv"
 
 	"github.com/codegangsta/cli"
@@ -12,7 +12,7 @@ import (
 
 func server(port string) {
 	fmt.Printf("Port is %s.\n", port)
-	ln, _ := net.Listen("tcp", ":" + port)
+	ln, _ := net.Listen("tcp", ":"+port)
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
@@ -26,7 +26,7 @@ func server(port string) {
 func handleConnection(conn net.Conn) {
 	defer conn.Close()
 	f, _ := os.Open("go.pac")
-	defer f.Close();
+	defer f.Close()
 	io.Copy(conn, f)
 }
 
