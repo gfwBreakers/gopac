@@ -17,8 +17,19 @@ import (
 	"github.com/go-libs/iputils"
 )
 
+var (
+	F      uint32 = 0xffffffff
+	EOL           = byte('\n')
+	URL           = "http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest"
+	CNIPV4        = regexp.MustCompile(`apnic\|(CN|cn)\|ipv4\|([0-9\.]+)\|([0-9]+)\|([0-9]+)\|a.*`)
+)
+
 type Node struct {
 	IP, Mask, Mask2 uint32
+}
+
+func NewNode(ip, mask string, mask2 uint32) Node {
+	return Node{iputils.IP2Long(ip), iputils.IP2Long(mask), mask2}
 }
 
 type Graph []Node
@@ -26,13 +37,6 @@ type Graph []Node
 func (g Graph) Len() int           { return len(g) }
 func (g Graph) Swap(i, j int)      { g[i], g[j] = g[j], g[i] }
 func (g Graph) Less(i, j int) bool { return g[i].IP < g[j].IP }
-
-var (
-	F      uint32 = 0xffffffff
-	EOL           = byte('\n')
-	URL           = "http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest"
-	CNIPV4        = regexp.MustCompile(`apnic\|(CN|cn)\|ipv4\|([0-9\.]+)\|([0-9]+)\|([0-9]+)\|a.*`)
-)
 
 func fetchIPData(results *Graph) (err error) {
 	var (
@@ -91,7 +95,7 @@ func fetchIPData(results *Graph) (err error) {
 			maskIP := fmt.Sprintf("%s.%s.%s.%s", mask[0], mask[1], mask[2], mask[3])
 
 			if startIP != prevIP {
-				*results = append(*results, Node{iputils.IP2Long(startIP), iputils.IP2Long(maskIP), mask2})
+				*results = append(*results, NewNode(startIP, maskIP, mask2))
 				prevIP = startIP
 			}
 		}
@@ -102,10 +106,10 @@ func fetchIPData(results *Graph) (err error) {
 func Action(c *cli.Context) {
 	var pacfile = "go.pac"
 	var results = make(Graph, 0)
-	results = append(results, Node{iputils.IP2Long("127.0.0.1"), iputils.IP2Long("255.0.0.0"), 0})
-	results = append(results, Node{iputils.IP2Long("10.0.0.0"), iputils.IP2Long("255.0.0.0"), 0})
-	results = append(results, Node{iputils.IP2Long("127.0.0.1"), iputils.IP2Long("255.240.0.0"), 0})
-	results = append(results, Node{iputils.IP2Long("192.168.0.0"), iputils.IP2Long("255.255.0.0"), 0})
+	results = append(results, NewNode("127.0.0.1", "255.0.0.0", 0))
+	results = append(results, NewNode("10.0.0.0", "255.0.0.0", 0))
+	results = append(results, NewNode("127.0.0.1", "255.240.0.0", 0))
+	results = append(results, NewNode("192.168.0.0", "255.255.0.0", 0))
 	fetchIPData(&results)
 	sort.Sort(results)
 
