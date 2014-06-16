@@ -2,7 +2,8 @@
 
 A PAC(Proxy auto-config) file generator with fetched China IP range,   
 which helps walk around GFW.   
-Forked from [Flora_Pac][] and ported [Flora_Pac][] to Golang.
+Forked from [Flora_Pac][] and ported [Flora_Pac][] to Golang.   
+Thanks to [@Leask](https://github.com/Leask).
 
 
 ## Usage:
