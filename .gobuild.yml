@@ -3,6 +3,7 @@ filesets:
         - templates
         - LICENSE
         - README.md
+        - go.pac
     excludes:
         - Godeps
         - \.git
