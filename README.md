@@ -5,4 +5,18 @@ which helps walk around GFW.
 Forked from [Flora_Pac][] and ported [Flora_Pac][] to Golang.
 
 
+## Usage:
+
+```
+$ gopac help
+```
+
+```sh
+// First, generate PAC file.
+$ gopac build
+// Second, host the PAC file.
+$ gopac serve
+```
+
+
 [Flora_Pac]: https://github.com/Leask/Flora_Pac
