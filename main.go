@@ -33,7 +33,7 @@ func init() {
 			Usage:  "Start pac server",
 			Action: serve.Action,
 			Flags: []cli.Flag{
-				cli.StringFlag{"port, p", "0", "Pac Server Port [OPTIONAL], examples: 8970"},
+				cli.IntFlag{"port, p", 0, "Pac Server Port [OPTIONAL], examples: 8970"},
 			},
 		},
 	)
