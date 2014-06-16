@@ -1,0 +1,8 @@
+filesets:
+    includes:
+        - templates
+        - LICENSE
+        - README.md
+    excludes:
+        - Godeps
+        - \.git
