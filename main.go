@@ -5,8 +5,8 @@ import (
 	"runtime"
 
 	"github.com/codegangsta/cli"
-	"github.com/futurespace/gopac/cmd/build"
-	"github.com/futurespace/gopac/cmd/serve"
+	"github.com/gfwBreakers/gopac/cmd/build"
+	"github.com/gfwBreakers/gopac/cmd/serve"
 )
 
 const APP_VER = "0.0.0"
