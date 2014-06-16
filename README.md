@@ -19,4 +19,11 @@ $ gopac serve -p 8970
 ```
 
 
+## Download
+
+http://beta.gobuild.io/github.com/futurespace/gopac
+
+
+
+
 [Flora_Pac]: https://github.com/Leask/Flora_Pac
