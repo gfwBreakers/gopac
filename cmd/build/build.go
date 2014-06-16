@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"encoding/binary"
 	"fmt"
-	"text/template"
 	"io"
 	"math"
 	"net"
@@ -14,11 +13,10 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"text/template"
 
 	"github.com/codegangsta/cli"
 )
-
-const F = 0xffffff
 
 type Node struct {
 	IP, Mask, Mask2 uint32
@@ -31,9 +29,10 @@ func (g Graph) Swap(i, j int)      { g[i], g[j] = g[j], g[i] }
 func (g Graph) Less(i, j int) bool { return g[i].IP < g[j].IP }
 
 var (
-	EOL    = byte('\n')
-	URL    = "http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest"
-	CNIPV4 = regexp.MustCompile(`apnic\|(CN|cn)\|ipv4\|([0-9\.]+)\|([0-9]+)\|([0-9]+)\|a.*`)
+	F      uint32 = 0xffffffff
+	EOL           = byte('\n')
+	URL           = "http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest"
+	CNIPV4        = regexp.MustCompile(`apnic\|(CN|cn)\|ipv4\|([0-9\.]+)\|([0-9]+)\|([0-9]+)\|a.*`)
 )
 
 func ip2long(ipstr string) uint32 {
@@ -59,7 +58,8 @@ func fetchIPData(results *Graph) (err error) {
 		r   *bufio.Reader
 
 		startIP, prevIP, smask string
-		numIP, imask           int
+		numIP                  int
+		imask                  uint32
 	)
 
 	fmt.Println("Fetching data from apnic.net, it might take a few minutes, please wait...")
@@ -85,7 +85,7 @@ func fetchIPData(results *Graph) (err error) {
 			startIP = matches[2]
 			numIP, _ = strconv.Atoi(matches[3])
 
-			imask = F ^ (numIP - 1)
+			imask = F ^ uint32(numIP-1)
 			smask = fmt.Sprintf("%02x", imask)
 			mask := [4]string{}
 			mask[0] = smask[0:2]
