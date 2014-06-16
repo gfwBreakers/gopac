@@ -15,7 +15,7 @@ $ gopac help
 // First, generate PAC file.
 $ gopac build
 // Second, host the PAC file.
-$ gopac serve
+$ gopac serve -p 8970
 ```
 
 
