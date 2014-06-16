@@ -24,6 +24,9 @@ $ gopac serve -p 8970
 http://beta.gobuild.io/github.com/futurespace/gopac
 
 
+## License
+
+MIT
 
 
 [Flora_Pac]: https://github.com/Leask/Flora_Pac
