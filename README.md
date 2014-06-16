@@ -1,4 +1,4 @@
-# gopac [![Gobuild Download](http://beta.gobuild.io/badge/github.com/futurespace/gopac/download.png)](http://beta.gobuild.io/github.com/futurespace/gopac)
+# gopac [![Gobuild Download](http://beta.gobuild.io/badge/github.com/gfwBreakers/gopac/download.png)](http://beta.gobuild.io/github.com/gfwBreakers/gopac)
 
 A PAC(Proxy auto-config) file generator with fetched China IP range,   
 which helps walk around GFW.   
@@ -22,7 +22,7 @@ $ gopac serve -p 8970
 
 ## Download
 
-http://beta.gobuild.io/github.com/futurespace/gopac
+http://beta.gobuild.io/github.com/gfwBreakers/gopac
 
 
 ## License
