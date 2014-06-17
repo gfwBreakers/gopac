@@ -2,39 +2,32 @@ package serve
 
 import (
 	"fmt"
-	"io"
-	"net"
+	"net/http"
 	"os"
-	"strconv"
 
 	"github.com/codegangsta/cli"
 )
 
-func server(port string) {
-	fmt.Printf("Port is %s.\n", port)
-	ln, _ := net.Listen("tcp", ":"+port)
-	for {
-		conn, err := ln.Accept()
-		if err != nil {
-			panic(err)
-			continue
-		}
-		go handleConnection(conn)
-	}
+type Tiny struct {
+	file string
 }
 
-func handleConnection(conn net.Conn) {
-	defer conn.Close()
-	f, _ := os.Open("go.pac")
+func (t *Tiny) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" && r.Method != "HEAD" {
+		return
+	}
+	f, _ := os.Open(t.file)
 	defer f.Close()
-	io.Copy(conn, f)
+	fi, _ := f.Stat()
+	http.ServeContent(rw, r, t.file, fi.ModTime(), f)
 }
 
 func Action(c *cli.Context) {
-	var port = c.Int("port")
-	if port <= 0 {
+	var port = c.String("port")
+	if port == "" {
 		return
 	}
 
-	server(strconv.Itoa(port))
+	t := Tiny{"go.pac"}
+	http.ListenAndServe(":"+port, t)
 }
