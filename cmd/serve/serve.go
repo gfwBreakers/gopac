@@ -24,7 +24,7 @@ func (s *Static) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 func Action(c *cli.Context) {
 	var port = c.String("port")
+	fmt.Printf("Server's port is %s.\n", port)
 	s := &Static{"go.pac"}
 	http.ListenAndServe(":"+port, s)
-	fmt.Printf("Server's port is %s.\n", port)
 }
