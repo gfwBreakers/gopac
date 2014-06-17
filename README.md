@@ -25,6 +25,11 @@ $ gopac serve -p 8970
 http://beta.gobuild.io/github.com/gfwBreakers/gopac
 
 
+## Testing
+
+http://www.cyberciti.biz/faq/linux-unix-appleosx-bsd-test-proxy-pac-file-syntax/
+
+
 ## License
 
 MIT
