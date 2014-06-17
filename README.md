@@ -9,13 +9,16 @@ Thanks to [@Leask](https://github.com/Leask).
 ## Usage:
 
 ```sh
+npm install
 $ gopac help
 ```
 
 ```sh
-# First, generate PAC file.
+# Generate PAC file.
 $ gopac build
-# Second, host the PAC file.
+# Compress PAC file.
+$ gulp
+# Start a PAC Serve.
 $ gopac serve -p 8970
 ```
 

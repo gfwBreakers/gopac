@@ -1,0 +1,22 @@
+{
+  "name": "gopac",
+  "version": "0.0.0",
+  "description": "A PAC file generator",
+  "private": true,
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gfwBreakers/gopac.git"
+  },
+  "author": "Fangdun Cai <cfddream@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gfwBreakers/gopac/issues"
+  },
+  "homepage": "https://github.com/gfwBreakers/gopac",
+  "devDependencies": {
+    "gulp": "^3.8.0",
+    "gulp-concat": "^2.2.0",
+    "gulp-uglify": "^0.3.0"
+  }
+}

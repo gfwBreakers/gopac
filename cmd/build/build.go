@@ -104,7 +104,7 @@ func fetchIPData(results *Graph) (err error) {
 }
 
 func Action(c *cli.Context) {
-	var pacfile = "go.pac"
+	var pacfile = "gogo.pac"
 	var results = make(Graph, 0)
 	results = append(results, NewNode("127.0.0.1", "255.0.0.0", 0))
 	results = append(results, NewNode("10.0.0.0", "255.0.0.0", 0))
