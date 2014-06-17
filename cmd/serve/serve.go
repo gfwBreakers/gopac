@@ -8,26 +8,23 @@ import (
 	"github.com/codegangsta/cli"
 )
 
-type Tiny struct {
+type Static struct {
 	file string
 }
 
-func (t *Tiny) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+func (s *Static) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	if r.Method != "GET" && r.Method != "HEAD" {
 		return
 	}
-	f, _ := os.Open(t.file)
+	f, _ := os.Open(s.file)
 	defer f.Close()
 	fi, _ := f.Stat()
-	http.ServeContent(rw, r, t.file, fi.ModTime(), f)
+	http.ServeContent(rw, r, s.file, fi.ModTime(), f)
 }
 
 func Action(c *cli.Context) {
 	var port = c.String("port")
-	if port == "" {
-		return
-	}
-
-	t := Tiny{"go.pac"}
-	http.ListenAndServe(":"+port, t)
+	s := &Static{"go.pac"}
+	http.ListenAndServe(":"+port, s)
+	fmt.Printf("Server's port is %s.\n", port)
 }
