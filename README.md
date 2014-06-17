@@ -9,7 +9,7 @@ Thanks to [@Leask](https://github.com/Leask).
 ## Usage:
 
 ```sh
-npm install
+$ npm install
 $ gopac help
 ```
 
@@ -21,6 +21,12 @@ $ gulp
 # Start a PAC Serve.
 $ gopac serve -p 8970
 ```
+
+
+## Dependences
+
+* Go
+* Node.js
 
 
 ## Download
