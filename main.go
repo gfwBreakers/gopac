@@ -34,6 +34,7 @@ func init() {
 			Action: serve.Action,
 			Flags: []cli.Flag{
 				cli.StringFlag{"port, p", "8970", "Pac Server Port [OPTIONAL], examples: 8970"},
+				cli.StringFlag{"config, c", "go.pac", "Set Pac file [OPTIONAL], examples: go.pac"},
 			},
 		},
 	)

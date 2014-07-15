@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/codegangsta/cli"
 )
@@ -24,7 +25,12 @@ func (s *Static) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 func Action(c *cli.Context) {
 	var port = c.String("port")
-	fmt.Printf("Server's port is %s.\n", port)
-	s := &Static{"go.pac"}
+	var config = c.String("config")
+	if config == "" {
+		config = "go.pac"
+	}
+	config, _ = filepath.Abs(config)
+	fmt.Printf("Server's port is %s.\nConfig file is %s.\n", port, config)
+	s := &Static{config}
 	http.ListenAndServe(":"+port, s)
 }
