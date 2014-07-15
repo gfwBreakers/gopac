@@ -20,6 +20,8 @@ $ gopac build
 $ gulp
 # Start a PAC Serve.
 $ gopac serve -p 8970
+# Or
+$ gopac serve -p 8970 -c go.pac
 ```
 
 
